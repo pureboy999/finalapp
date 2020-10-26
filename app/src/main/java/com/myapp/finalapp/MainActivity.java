@@ -229,11 +229,11 @@ public class MainActivity extends AppCompatActivity {
         fragList.add(wf5);
         //添加标题信息到List
         titleList=new ArrayList<String>();
-        titleList.add("今天天气");
-        titleList.add("明天天气");
-        titleList.add("后天天气");
-        titleList.add("大后天天气");
-        titleList.add("大大后天天气");
+        titleList.add("Today");
+        titleList.add("Tomorrow");
+        titleList.add("two day after today");
+        titleList.add("three day after today");
+        titleList.add("four day after today");
         //取消标题下划线
         tab.setDrawFullUnderline(false);
         //建立ViewPager适配器
