@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
     class mClick implements View.OnClickListener{
         public void onClick(View v){
-            Intent intent2 =new Intent(MainActivity.this,AddCityActivity.class);
+            Intent intent2 =new Intent(MainActivity.this,AddCityActivity2.class);
             intent2.putExtra("cityName", cityName);
             startActivity(intent2);
         }

@@ -49,14 +49,15 @@ public class AddCityActivity2 extends AppCompatActivity {
     private String lastCityName;                //用于保存Intent中传递的cityName
     private static final String TAG = "AddCityActivity";
     List<Cityname> list1;//保存省名即拼音
+    List<Cityname> list2;//保存城市名和城市代码
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_city);
         mContext=AddCityActivity2.this;
-        //获取主界面传递的cityName
-//        intentGet=getIntent();
-//        lastCityName=intentGet.getStringExtra("cityName");
+//        获取主界面传递的cityName
+        intentGet=getIntent();
+        lastCityName=intentGet.getStringExtra("cityName");
 
         //绑定ListView控件
         listView = (ListView) findViewById(R.id.list_view);
@@ -72,6 +73,12 @@ public class AddCityActivity2 extends AppCompatActivity {
                 if(msg.what==1){
                     list1 = (List<Cityname>) msg.obj;
                     arr_adapter = new MyLvAdapter(mContext,android.R.layout.simple_list_item_1,list1);
+                    listView.setAdapter(arr_adapter);
+
+                    listView.setOnItemClickListener(new mItemClick());
+                }else if(msg.what==2){
+                    list2 = (List<Cityname>) msg.obj;
+                    arr_adapter = new MyLvAdapter(mContext,android.R.layout.simple_list_item_1,list2);
                     listView.setAdapter(arr_adapter);
 
                     listView.setOnItemClickListener(new mItemClick());
@@ -131,11 +138,15 @@ public class AddCityActivity2 extends AppCompatActivity {
             for(int i=0;i<tables.size();i++){
                 Cityname map = new Cityname();
                 Log.i(TAG,"getDocState==1:"+tables.get(i));
-                String temp1[]=tables.get(i).toString().split("pyname=\"|\" cityname=",3);
-                String temp2[]=tables.get(i).toString().split("quname=\"|\" pyname=",3);
+                String temp1[]=tables.get(i).toString().split("pyname=\"|\" state1=\"",3);
+                String temp2[]=tables.get(i).toString().split("cityname=\"|\" centername=",3);
+                String temp3[]=tables.get(i).toString().split("url=\"|\" />");
                 map.setPyname(temp1[1]);
                 map.setQuname(temp2[1]);
+                map.setCitycode(temp3[1]);
+                Log.i(TAG,"URL:"+temp3[1]);
                 list.add(map);
+//                temp3=tables.get(i).toString().split("url=\"|\" />");
             }
         }
         return list;
@@ -159,16 +170,6 @@ public class AddCityActivity2 extends AppCompatActivity {
             //如果ItemClickState==0点击后则进入第二级菜单 第二级菜单显示选中的省份的城市名
             if(ItemClickState==0){
                 try {
-//                    //获取选中省份的JSON数据
-//                    Log.i(TAG,jsonArray.toString());
-//                    jsonObject = jsonArray.getJSONObject(arg2);
-//                    jsonArray = jsonObject.getJSONArray("zone");
-//                    //解析后将城市名存入arr_data
-//                    arr_data=new String[jsonArray.length()];
-//                    for(int i=0;i<jsonArray.length();i++){
-//                        jsonObject = jsonArray.getJSONObject(i);
-//                        arr_data[i]=  jsonObject.getString("name");
-//                    }
                     Thread t = new Thread(){
                         @Override
                         public void run() {
@@ -182,10 +183,10 @@ public class AddCityActivity2 extends AppCompatActivity {
 //            Log.i(TAG,"run: html="+html);
                                 Document doc = Jsoup.parse(html);
 //            Log.i(TAG,"run:?"+doc.title());
-                                List<Cityname> message = getMessage2(doc);
-                                Message msg = handler.obtainMessage(1);
-                                msg.obj = message;
-                                handler.sendMessage(msg);
+                                List<Cityname> message = getMessage(doc,1);
+                                Message msg1 = handler.obtainMessage(2);
+                                msg1.obj = message;
+                                handler.sendMessage(msg1);
 
                             } catch (MalformedURLException e) {
                                 e.printStackTrace();
@@ -207,32 +208,9 @@ public class AddCityActivity2 extends AppCompatActivity {
             }//如果ItemClickState==1点击后进入第三级菜单 第三级菜单显示选中的城市的地区名
             else if(ItemClickState==1){
                 try {
-                    //获取选中城市的JSON数据
-                    jsonObject = jsonArray.getJSONObject(arg2);
-                    jsonArray = jsonObject.getJSONArray("zone");
-                    //解析后将地区名存入arr_data[] ,地区的城市代码放入code_data[]
-                    arr_data=new String[jsonArray.length()];
-                    code_data=new String[jsonArray.length()];
-                    for(int i=0;i<jsonArray.length();i++){
-                        jsonObject = jsonArray.getJSONObject(i);
-                        arr_data[i]=  jsonObject.getString("name");
-                        code_data[i] =  jsonObject.getString("code");
-                    }
-                    //刷新适配器内容
-//                    arr_adapter = new MyLvAdapter(mContext,android.R.layout.simple_list_item_1,arr_data);
-//                    listView.setAdapter(arr_adapter);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                //监听器进入下一级
-                ItemClickState++;
-            }///如果ItemClickState==2点击后获取arr_data[i],code_data[i]的值更新到数据库，i为选中的项即arg2
-            else if(ItemClickState==2){
-                try {
-                    //获取arr_data[i],code_data[i]的值
                     String cityName,cityCode;
-                    cityName= arr_data[arg2];
-                    cityCode = code_data[arg2];
+                    cityName= list2.get(arg2).getQuname();
+                    cityCode = list2.get(arg2).getCitycode();
                     MyDBHelper myDBHelper = new MyDBHelper(mContext, "my.db", null, 1);
                     SQLiteDatabase db=myDBHelper.getWritableDatabase();
                     //修改SQL语句
@@ -249,6 +227,7 @@ public class AddCityActivity2 extends AppCompatActivity {
                 }catch (Exception e){
                     e.printStackTrace();
                 }
+
             }
         }
     }
