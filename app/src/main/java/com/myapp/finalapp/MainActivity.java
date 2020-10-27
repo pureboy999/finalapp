@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private String cityName;        //需要获取数据的城市名
     private String cityCode;        //需要获取数据的城市代码
     private Button add_city;        //添加/修改按钮
+    private Button showInfo;        //提示天气信息
     private ViewPager pager;        //ViewPager控件 实现左右滑动切换页面
     private List<String> titleList; //标题List      各页面的标题名
     private List<Fragment>fragList; //ViewPager     各页面的Fragment
@@ -92,6 +93,8 @@ public class MainActivity extends AppCompatActivity {
         tab=(PagerTabStrip)findViewById(R.id.tab);
         add_city=(Button)findViewById(R.id.addButton);
         add_city.setOnClickListener(new mClick());
+        showInfo=(Button)findViewById(R.id.btn_info);
+        showInfo.setOnClickListener(new mClick());
         //将imagecode.json文件中。天气类型和天气图片名分别绑定到arry_data1，arry_data2
         InputStreamReader isr;
         try {
@@ -123,9 +126,13 @@ public class MainActivity extends AppCompatActivity {
 
     class mClick implements View.OnClickListener{
         public void onClick(View v){
-            Intent intent2 =new Intent(MainActivity.this,AddCityActivity2.class);
-            intent2.putExtra("cityName", cityName);
-            startActivity(intent2);
+            if(v.getId()==R.id.addButton) {
+                Intent intent2 = new Intent(MainActivity.this, AddCityActivity2.class);
+                intent2.putExtra("cityName", cityName);
+                startActivity(intent2);
+            }else if(v.getId()==R.id.btn_info){
+                Toast.makeText(mContext,getInfoGanmao(), Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
@@ -167,6 +174,17 @@ public class MainActivity extends AppCompatActivity {
         t.start();
     }
 
+    public String getInfoGanmao(){
+        String info_ganmao=null;
+        try {
+            jsonObject = new JSONObject(result);
+            jsonObject = jsonObject.getJSONObject("data");
+            info_ganmao=jsonObject.getString("ganmao");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return  info_ganmao;
+    }
     public void setPagerView(){
         //建立五个 Bundle 用于传递不同日期的天气数据到不同的Fragment 五天的天气数据传到五个Fragment页面
         Bundle b1 = new Bundle();
@@ -180,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
             jsonObject = new JSONObject(result);
             jsonObject = jsonObject.getJSONObject("data");
             jsonArray = jsonObject.getJSONArray("forecast");
+            Log.e(TAG, "setPagerView:jsonArray "+jsonArray);
             weatherInfo=new String[5];
             for(int i=0;i<5;i++){
                 jsonObject =jsonArray.getJSONObject(i);

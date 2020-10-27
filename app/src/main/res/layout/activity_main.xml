@@ -3,32 +3,61 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@drawable/timg"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/pager"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints">
 
         <androidx.viewpager.widget.PagerTabStrip
             android:id="@+id/tab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></androidx.viewpager.widget.PagerTabStrip>
+
+
     </androidx.viewpager.widget.ViewPager>
 
-    <Button
-        android:id="@+id/addButton"
-        android:layout_width="206dp"
-        android:layout_height="163dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/btn6"
-        android:text="SWITCH"
-        android:textColor="#98FB98"
-        android:textSize="24sp"
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="178dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="224dp"
+            android:layout_height="178dp"
+            android:background="@drawable/btn6"
+            android:text="SWITCH"
+            android:textColor="#98FB98"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_info"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <Button
+            android:id="@+id/btn_info"
+            android:layout_width="210dp"
+            android:layout_height="171dp"
+            android:background="@drawable/info"
+            android:text="info"
+            android:textColor="#98FB98"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:layout_editor_absoluteX="750dp" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
