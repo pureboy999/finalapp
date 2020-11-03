@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="天气:"
-        android:textColor="@android:color/holo_orange_dark"
+        android:textColor="@android:color/black"
         android:textSize="24sp" />
 
     <TextView
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="最高温:"
-        android:textColor="@android:color/holo_red_dark"
+        android:textColor="@android:color/black"
         android:textSize="24sp" />
 
     <TextView
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="最低温:"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@android:color/black"
         android:textSize="24sp" />
 
     <TextView
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="风力:"
-        android:textColor="@android:color/holo_green_light"
+        android:textColor="@android:color/black"
         android:textSize="24sp" />
 
     <TextView
@@ -74,6 +74,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="风向:"
-        android:textColor="#00008B"
+        android:textColor="@android:color/background_dark"
         android:textSize="24sp" />
 </LinearLayout>

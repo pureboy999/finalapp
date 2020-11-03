@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/timg"
+    android:background="@drawable/bgp"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
@@ -30,7 +30,7 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
-        android:layout_height="178dp"
+        android:layout_height="171dp"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -38,8 +38,8 @@
 
         <Button
             android:id="@+id/addButton"
-            android:layout_width="224dp"
-            android:layout_height="178dp"
+            android:layout_width="210dp"
+            android:layout_height="171dp"
             android:background="@drawable/btn6"
             android:text="SWITCH"
             android:textColor="#98FB98"
@@ -50,7 +50,7 @@
 
         <Button
             android:id="@+id/btn_info"
-            android:layout_width="210dp"
+            android:layout_width="wrap_content"
             android:layout_height="171dp"
             android:background="@drawable/info"
             android:text="info"

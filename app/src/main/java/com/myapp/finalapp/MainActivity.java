@@ -120,6 +120,7 @@ public class MainActivity extends AppCompatActivity {
         }
         //更新天气数据的getWeatherSta()方法
         getWeatherSta();
+        List<String> A= getdateLine();
 
 
     }
@@ -185,6 +186,23 @@ public class MainActivity extends AppCompatActivity {
         }
         return  info_ganmao;
     }
+    public List<String> getdateLine(){
+        List<String> date=new ArrayList<>();
+        try {
+            jsonObject = new JSONObject(result);
+            jsonObject = jsonObject.getJSONObject("data");
+            jsonArray = jsonObject.getJSONArray("forecast");
+            Log.e(TAG, "setPagerView:jsonArray998 "+jsonArray);
+            for(int i=0;i<5;i++){
+                jsonObject =jsonArray.getJSONObject(i);
+                Log.e(TAG, "setPagerView:DATE "+jsonObject.getString("date"));
+                date.set(i,jsonObject.getString("date"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
     public void setPagerView(){
         //建立五个 Bundle 用于传递不同日期的天气数据到不同的Fragment 五天的天气数据传到五个Fragment页面
         Bundle b1 = new Bundle();
@@ -198,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
             jsonObject = new JSONObject(result);
             jsonObject = jsonObject.getJSONObject("data");
             jsonArray = jsonObject.getJSONArray("forecast");
-            Log.e(TAG, "setPagerView:jsonArray "+jsonArray);
+//            Log.e(TAG, "setPagerView:jsonArray "+jsonArray);
             weatherInfo=new String[5];
             for(int i=0;i<5;i++){
                 jsonObject =jsonArray.getJSONObject(i);
