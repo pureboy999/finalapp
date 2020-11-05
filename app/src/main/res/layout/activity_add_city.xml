@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgp_add"
-    tools:context=".AddCityActivity">
+    android:background="@drawable/bgm998"
+    tools:context=".AddCityActivity2">
 
     <ListView
         android:fadingEdge="none"

@@ -204,7 +204,6 @@ public class MainActivity extends AppCompatActivity {
         return date;
     }
     public void setPagerView(){
-        //建立五个 Bundle 用于传递不同日期的天气数据到不同的Fragment 五天的天气数据传到五个Fragment页面
         Bundle b1 = new Bundle();
         Bundle b2 = new Bundle();
         Bundle b3 = new Bundle();
@@ -216,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
             jsonObject = new JSONObject(result);
             jsonObject = jsonObject.getJSONObject("data");
             jsonArray = jsonObject.getJSONArray("forecast");
-//            Log.e(TAG, "setPagerView:jsonArray "+jsonArray);
+            //Log.e(TAG, "setPagerView:jsonArray "+jsonArray);
             weatherInfo=new String[5];
             for(int i=0;i<5;i++){
                 jsonObject =jsonArray.getJSONObject(i);
@@ -264,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
         fragList.add(wf3);
         fragList.add(wf4);
         fragList.add(wf5);
-        //添加标题信息到List
+        //添加标题信息到Listxxxxxx
         titleList=new ArrayList<String>();
         titleList.add("Today");
         titleList.add("Tomorrow");

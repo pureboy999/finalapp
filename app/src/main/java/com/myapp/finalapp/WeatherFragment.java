@@ -20,7 +20,7 @@ import org.json.JSONObject;
 public class WeatherFragment extends Fragment {
     JSONObject jsonObject;
     JSONArray jsonArray;
-    private int[] imgs={
+    private int[] imagems ={
             R.drawable.a0,R.drawable.a1,R.drawable.a2,R.drawable.a3,R.drawable.a4,R.drawable.a5,
             R.drawable.a6,R.drawable.a7,R.drawable.a8,R.drawable.a9,R.drawable.a10,R.drawable.a11,
             R.drawable.a12,R.drawable.a13,R.drawable.a14,R.drawable.a15,R.drawable.a16,R.drawable.a17,
@@ -66,7 +66,7 @@ public class WeatherFragment extends Fragment {
         int code=Integer.parseInt(Info[7]);
         ImageView fiv = view.findViewById(R.id.fimageView);
         if(code!=99)
-            fiv.setImageResource(imgs[code]);
+            fiv.setImageResource(imagems[code]);
         return view;
     }
 }
